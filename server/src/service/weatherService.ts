@@ -45,8 +45,9 @@ class WeatherService {
   private apiKey?: string;
 
   constructor() {
-    this.baseURL = process.env.API_BASE_URL || '';
-    this.apiKey = process.env.API_KEY || '';
+    console.log(process.env)
+    this.baseURL = process.env.REACT_APP_WEATHERSERVICE_API_URL || '';
+    this.apiKey = process.env.REACT_APP_WEATHERSERVICE_API_KEY || '';
     if (!this.baseURL || !this.apiKey) {
       throw new Error('API_BASE_URL and API_KEY must be provided');
     }
