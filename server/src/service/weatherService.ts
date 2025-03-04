@@ -1,5 +1,15 @@
 import dotenv from 'dotenv';
-dotenv.config();
+import { fileURLToPath } from 'url'; // Add this
+import { dirname, resolve } from 'path'; // Add this
+
+// Replicate __dirname in ES Modules
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const envPath = resolve(__dirname, '../../../.env')
+
+// Load .env from root directory
+dotenv.config({
+  path: envPath // Path resolves to root/.env
+});
 
 // TODO: Define an interface for the Coordinates object
 interface Coordinates {
