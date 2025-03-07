@@ -55,8 +55,9 @@ class WeatherService {
   private apiKey?: string;
 
   constructor() {
-    this.baseURL = process.env.API_BASE_URL || '';
-    this.apiKey = process.env.API_KEY || '';
+    console.log(process.env)
+    this.baseURL = process.env.REACT_APP_WEATHERSERVICE_API_URL || '';
+    this.apiKey = process.env.REACT_APP_WEATHERSERVICE_API_KEY || '';
     if (!this.baseURL || !this.apiKey) {
       throw new Error('API_BASE_URL and API_KEY must be provided');
     }
@@ -66,6 +67,7 @@ class WeatherService {
 
     //Call the API to get LAT/LONG
     const getLatLongApiUrl = `${this.baseURL}/geo/1.0/direct?q=${this.cityName}&limit=5&appid=${this.apiKey}`
+    console.log('HERE IS URL', getLatLongApiUrl);
     const response = await fetch(getLatLongApiUrl);
 
     const latLongResult: Coordinates[] = await response.json() //translate to json
@@ -75,7 +77,7 @@ class WeatherService {
       lon: latLongResult[0].lon,
     }
     const getWeatherDataApi = `${this.baseURL}/data/2.5/forecast?lat=${cityCoordinates.lat}&lon=${cityCoordinates.lon}&appid=${this.apiKey}`
-
+    console.log('HERE IS URL2', getWeatherDataApi);
     const weatherResponse = await fetch(getWeatherDataApi);
     const weather: any = await weatherResponse.json()
     const AllWeather = [];
